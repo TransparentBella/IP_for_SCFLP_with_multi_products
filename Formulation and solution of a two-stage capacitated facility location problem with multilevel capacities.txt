@@ -1,0 +1,1246 @@
+PAGES: 27
+
+--- PAGE 1 ---
+Ann Oper Res (2019) 272:41–67
+https://doi.org/10.1007/s10479-017-2741-7
+S.I.: ADV ANCES IN THEORETICAL AND APPLIED COMBINA TORIAL OPTIMIZA TION
+Formulation and solution of a two-stage capacitated
+facility location problem with multilevel capacities
+Chandra Ade Irawan 1 · Dylan Jones2
+Published online: 18 January 2018
+© Springer Science+Business Media, LLC, part of Springer Nature 2018
+Abstract In this paper, the multi-product facility location problem in a two-stage supply
+chain is investigated. In this problem, the locations of depots (distribution centres) need to be
+determined along with their corresponding capacities. Moreover, the product ﬂows from the
+plants to depots and onto customers must also be optimised. Here, plants have a production
+limit whereas potential depots have several possible capacity levels to choose from, which are
+deﬁned as multilevel capacities. Plants must serve customer demands via depots. Two integer
+linear programming (ILP) models are introduced to solve the problem in order to minimise the
+ﬁxed costs of opening depots and transportation costs. In the ﬁrst model, the depot capacity is
+based on the maximum number of each product that can be stored whereas in the second one,
+the capacity is determined by the size (volume) of the depot. For large problems, the models
+are very difﬁcult to solve using an exact method. Therefore, a matheuristic approach based
+on an aggregation approach and an exact method (ILP) is proposed in order to solve such
+problems. The methods are assessed using randomly generated data sets and existing data
+sets taken from the literature. The solutions obtained from the computational study conﬁrm
+the effectiveness of the proposed matheuristic approach which outperforms the exact method.
+In addition, a case study arising from the wind energy sector in the UK is presented.
+Keywords Facility location · Matheuristic · ILP
+1 Introduction
+The two-stage facility location problem (TSFLP) with two types of facilities can be
+classiﬁed as a type of hierarchical facility location problem. In the ﬁrst stage, products
+B Chandra Ade Irawan
+chandra.irawan@nottingham.edu.cn
+1 Nottingham University Business School China, University of Nottingham Ningbo China, 199
+Taikang East Road, Ningbo 315100, China
+2 Department of Mathematics, Centre for Operational Research and Logistics, University of
+Portsmouth, Lion Gate Building, Lion Terrace, Portsmouth PO1 3HF, UK
+123
+
+--- PAGE 2 ---
+42 Ann Oper Res (2019) 272:41–67
+produced/supplied by plants are transferred to capacitated depots. The location and the num-
+ber of plants and depots can be treated as ﬁxed or as decision variables. Their capacity may
+be ﬁnite (capacitated) or unlimited (uncapacitated). In the second stage, the products are
+delivered to customers. The problem to be addressed includes ﬁnding an optimal distribution
+structure in order to minimise both the ﬁxed (opening) cost of the plants and depots and the
+transportation costs associated with both stages.
+The two-stage location problem has been investigated in the literature. A dual-based
+optimization procedure for the two-echelon uncapacitated facility location problem was pro-
+posed by Gao and Robinson ( 1992). The two-stage facility location with a single sourcing
+constraint on depot-plant assignment and customer-depot assignment was investigated by
+Tragantalerngsak et al. ( 1997) where six Lagrangean relaxation heuristics are introduced.
+Marín and Pelegrín ( 1999) applied Lagrangian relaxation to the resolution of two-stage
+location problems. Klose ( 1999, 2000) studied the two-stage facility location with a single
+product, depot location, plant-depot multiple source ﬂow and single source customer-depot
+assignment. An effective linear programming approach and a Lagrangean relax-and-cut algo-
+rithm are proposed to achieve lower and upper bounds for the problem. Tragantalerngsak
+et al. (2000) also proposed a Lagrangean-based branch-and-bound method to solve the prob-
+lem. Hinojosa et al. ( 2000) studied a heuristic algorithm based on Lagrangean relaxation to
+solve a multi-period two-echelon multicommodity capacitated plant location problem.
+Keskin and Üster (2007a, b) proposed a scatter search for a multi-type transhipment point
+location problem with multi-commodity ﬂow and studied meta-heuristic approaches with
+memory and evolution for a multi-product production/distribution system design problem
+respectively. Li et al. ( 2011) proposed a Lagrangean-based heuristic for a two-stage facility
+location problem with handling costs with multiple products and three layers of nodes: plants
+with limited production capacities, capacitated depots to be located and customers with known
+demands per product. The aim of their model is to minimize a total cost comprising depot
+opening, transportation and handling costs. Li et al. ( 2014) investigated a multi-product
+facility location problem in a two-stage supply chain in which plants have a production limit,
+potential depots have limited storage capacity and customer demands must be satisﬁed by
+plants via depots. A hybrid method is developed where the initial lower and upper bounds are
+obtained by a Lagrangean based heuristic and a weighted Dantzig–Wolfe decomposition and
+path-relinking combined method are applied to improve obtained bounds. Several variants of
+the two-stage location problem were also studied by Li et al. ( 2012), Rodríguez et al. (2014),
+Camacho-V allejo et al. (2015), and Miškovi´c and Stanimirovi´c( 2016).
+The papers cited above deal with the two-stage facility location problem with ﬁxed capacity
+for each potential depot. However, in practical situations, the capacity of the depot is also
+considered as a decision variable which needs to be determined (Correia and Captivo 2003).
+This means that the problem is not only to ﬁnd the optimal location of the depot but also its
+capacity. In this study, we not only deal with one product but also with multiple products
+meaning that a depot may have a different capacity for each product. To the best of our
+knowledge, this type of problem has not yet been addressed in the literature. Therefore, this
+paper proposes new mathematical models and a solution method to deal with the two-stage
+capacitated facility location problem in the presence of multilevel capacities.
+The main contributions of this paper are as follows:
+• Propose for the ﬁrst time mathematical models for the two-stage capacitated facility
+location problem in the presence of multi-product and multilevel capacities,
+• Propose an effective matheuristic approach based on an aggregation method to solve the
+problem,
+123
+
+--- PAGE 3 ---
+Ann Oper Res (2019) 272:41–67 43
+• Provide a new dataset for the new problem and produce good quality solutions for bench-
+marking purposes.
+The remainder of this paper is organised as follows. Mathematical models for the two-stage
+capacitated facility location problem considering the presence of multilevel capacities are
+presented in Sect. 2. Section 3 discusses the proposed matheuristic approach to solve the
+problem. The computational results are presented in Sect. 4 followed by conclusions in the
+ﬁnal section.
+2 Problem formulation
+In this section, two mathematical models of the two-stage capacitated facility location prob-
+lem considering the presence of multilevel capacities are presented. Here, a set of potential
+depots to choose from is given where the depots to be opened (opened depots) can be deter-
+mined by solving the models. In the ﬁrst model, which we refer to as Model A, each potential
+depot has an associated set of possible capacities for storing each product with different ﬁxed
+costs. The capacity is related to the maximum amount of units that can be stored for each
+product in the depot. In this paper, we refer to this capacity as the ‘ product capacity’. For
+example, suppose that there are 2 products (Product P1 and P2) where the possible capacities
+of a depot for these products are 10, 15 and 30 for Product P1 and 80, 120 and 160 for product
+P2. Here, the ﬁrst decision is to determine whether we will open this depot or not. The second
+is to decide whether both products will be stored in this depot. The depot may store both
+products P1 and P2 or just one of them. Finally, the optimal capacity for each product for
+this depot needs to be found.
+In the second proposed model, termed Model B, the capacity of a depot is based on the size
+(volume) of the depot that is required to be built. In this model, a set of possible capacities
+(volume) for each potential depot is given. In this study, we refer to this capacity as the
+‘volume capacity ’. The ﬁrst decision generated by this model is to determine whether the
+depot should be opened or not whilst the second is to decide how big a depot needs to be
+built. Here, we assume that the volume needed to store one unit product is known. The total
+volume needed to store all products must not exceed the size of the opened depot.
+2.1 Model A
+In model A, there are two types of ﬁxed (opening) cost where the ﬁrst is the setup (ﬁxed) cost
+for opening a depot. The second ﬁxed cost is related to the capacity of each product used in
+the depot. The ﬁxed cost is dependent on the product capacity and the location of the depot.
+Therefore, the ﬁxed cost of a potential depot may be different from that of others. An opened
+depot is also not necessarily built to store all products. In other words, the opened depot
+may keep only selected products. In this model the ﬁrst total ﬁxed cost can be determined
+using decision variable Q
+j and the second one by ˆY jpd . The following notations are used to
+describe the sets, parameters, and decision variables of Model A.
+Sets
+I : set of plants with i as its index and l = |I|
+J : set of potential depots with j as its index and m = |J|
+K : set of customers with k as its index and n = |K|
+P: set of products with p as its index and o = |P|
+123
+
+--- PAGE 4 ---
+44 Ann Oper Res (2019) 272:41–67
+D jp : set of product capacities at potential depot j for storing product p with d as its index
+and δjp =
+⏐⏐D jp
+⏐⏐.
+Parameters
+sip : the capacity of plant i(i ∈ I) to produce product p( p ∈ P)
+wkp : the demand of customer k(k ∈ K) for product p( p ∈ P)
+˜f j : the ﬁxed cost for opening depot j( j ∈ J)
+ˆf jpd : the ﬁxed cost to store product p( p ∈ P) using product capacity d(d ∈ D jp ) in depot
+j( j ∈ J)
+ˆb jpd : the number of product p( p ∈ P) that can be stored in depot j( j ∈ J) when using
+product capacity d(d ∈ D jp )
+cijp : unit transportation cost of product p( p ∈ P) from plant i(i ∈ I) to depot j( j ∈ J)
+ˆc jkp : unit transportation cost of product p( p ∈ P) from depot j( j ∈ J) to customer
+k(k ∈ K)
+Decision variables
+Xijp : the amount of product p( p ∈ P) transported from plant i(i ∈ I) to depot j( j ∈ J)
+ˆX jkp : the amount of product p( p ∈ P) transferred from depot j( j ∈ J) to customer
+k(k ∈ K)
+ˆY jpd = 1, if depot j( j ∈ J) uses product capacity d(d ∈ D jp ) to store product p( p ∈ P) or
+= 0 otherwise
+Q j = 1, if depot j( j ∈ J) is open (selected) or
+= 0 otherwise
+The problem can be modelled as an integer linear problem (ILP) as follows.
+Min
+∑
+j∈J
+(
+˜f j · Q j
+)
++
+∑
+j∈J
+∑
+p∈P
+∑
+d∈D jp
+(
+ˆf jpd · ˆY jpd
+)
++
+∑
+i∈I
+∑
+j∈J
+∑
+p∈P
+(
+Xijp · cijp
+)
++
+∑
+j∈J
+∑
+k∈K
+∑
+p∈P
+(
+ˆX jkp ·ˆc jkp
+)
+(1)
+Subject to∑
+j∈J
+Xijp ≤ sip , ∀i ∈ I, p ∈ P (2)
+∑
+i∈I
+Xijp ≤
+∑
+d∈D jp
+ˆb jpd · Y jpd , ∀j ∈ J, p ∈ P (3)
+δjp∑
+d=1
+Y jpd ≤ Q j , ∀j ∈ J, p ∈ P (4)
+∑
+j∈J
+ˆX jkp = wkp , ∀k ∈ K, p ∈ P (5)
+∑
+i∈I
+Xijp =
+∑
+k∈K
+ˆX jkp , ∀j ∈ J, p ∈ P (6)
+Xijp ≥ 0, integer ∀i ∈ I, j ∈ J, p ∈ P (7)
+ˆX jkp ≥ 0, integer ∀j ∈ J, k ∈ K, p ∈ P (8)
+Y jpd ∈{ 0, 1}, ∀j ∈ J, p ∈ P, d ∈ D jp (9)
+Q j ∈{ 0, 1}, ∀j ∈ J (10)
+123
+
+--- PAGE 5 ---
+Ann Oper Res (2019) 272:41–67 45
+In the objective function ( 1), the ﬁrst term represents the ﬁxed cost of opening the depots,
+the second term is the ﬁxed cost of the depots to store the products, the third term is the total
+transportation cost from the plants to the depots and the fourth term is the total transportation
+cost from the depots to the customers. Constraints (2) ensure that the total number of products
+transferred from a supplier does not exceed its capacity. Constraints ( 3) guarantee that the
+capacity constraints at the depots are satisﬁed. Constraints (4) indicate that each opened depot
+only uses at most one capacity level for each product. Constraints (5) ensure that the demand
+of each customer for each product is met. Constraints ( 6) state ﬂow conservation constraints
+for the depots. Constraints ( 7)a n d( 8) impose non-negativity and integer conditions on the
+number of products delivered. Constraints ( 9)a n d( 10) refer to the binary nature of the
+variables Y and Q (the decisions whether a depot is opened or not and which capacity is used
+by the opened depot).
+2.2 Model B
+In the second model, model B, the capacity considered is based on the required size (volume)
+of the depot. In contrast to Model A, the ﬁxed cost in Model B only consists of one term
+as the ﬁxed cost includes those of both its opening and the storing of products, based on its
+capacity. In this model the total ﬁxed cost can hence be calculated based on variable decision
+Y
+jd . Several possible volume capacities for each depot are considered in this model where
+the volume capacity of a potential depot has a ﬁxed cost that is also dependent on its size
+and location. The dimension/volume of each product is required in this model in order to
+determine the capacity constraints of the depots. The notations used for sets and parameters
+in this model are similar to the ones provided in the previous model (model A) with some
+revisions described as follows. Set D
+jp is replaced by ˆD j whereas parameters ˆf jpd and ˆb jpd
+are substituted by f jd and b jd respectively. Parameter ˜f j is not required in this model but
+parameter αp is added.
+Sets
+ˆD j : set of feasible volume capacities at potential depot j with d as its index and ˆδj =
+⏐⏐
+⏐ ˆD
+j
+⏐⏐
+⏐.
+Parameters
+f
+jd : the ﬁxed cost for opening depot j ( j ∈ J) using volume capacity d(d ∈ ˆD j )
+b jd : the volume (size) of depot j( j ∈ J) using volume capacity d(d ∈ ˆD j )
+αp : the volume required to store a unit of product p( p ∈ P)
+Decision variables
+Xijp and ˆX jkp as deﬁned in the previous model.
+Y jd = 1, if depot j( j ∈ J) uses volume capacity d(d ∈ ˆD j ) or = 0 otherwise
+The problem can be modelled as an integer linear problem as follows.
+Min
+∑
+j∈J
+∑
+d∈ ˆD j
+(
+f jd · Y jd
+)
++
+∑
+i∈I
+∑
+j∈J
+∑
+p∈P
+(
+Xijp · cijp
+)
++
+∑
+j∈J
+∑
+k∈K
+∑
+p∈P
+(
+ˆX jkp ·ˆc jkp
+)
+(11)
+Subject to∑
+j∈J
+Xijp ≤ sip , ∀i ∈ I, p ∈ P (12)
+123
+
+--- PAGE 6 ---
+46 Ann Oper Res (2019) 272:41–67
+∑
+i∈I
+∑
+p∈P
+Xijp · αp ≤
+∑
+d∈ ˆD j
+Y jd · b jd , ∀j ∈ J (13)
+∑
+d∈ ˆD j
+Y jd ≤ 1, ∀j ∈ J (14)
+∑
+j∈J
+ˆX jkp = wkp , ∀k ∈ K, p ∈ P (15)
+∑
+i∈I
+Xijp =
+∑
+k∈K
+ˆX jkp , ∀j ∈ J, p ∈ P (16)
+Xijp ≥ 0, integer ∀i ∈ I, j ∈ J, p ∈ P (17)
+ˆX jkp ≥ 0, integer ∀j ∈ J, k ∈ K, p ∈ P (18)
+Y jd ∈{ 0, 1}, ∀j ∈ J, d ∈ ˆD j (19)
+The objective function ( 11) aims to minimise the sum of the ﬁxed costs of opening
+depots and transportation costs. The ﬁrst term of this objective function represents the
+ﬁxed cost of opening the depots based on the capacity of the depots, the second term
+is the total transportation cost from the plants to the depots, and the third term is
+the total transportation cost from the depots to the customers. Constraints ( 12) enforce
+the capacity constraints of the plants. Constraints ( 13) ensure that the size (volume) of
+depots is enough to store the products. Constraints ( 14) make sure that each opened
+depot only uses one volume capacity. Constraints ( 15) guarantee that the demand of
+each customer is satisﬁed. Constraints ( 16) state ﬂow conservation constraints for the
+depots.
+3 The solution method
+The classical two-stage capacitated facility location problem (TSCFLP) is an NP-hard opti-
+mization problem as it represents a generalization of the simple plant location problem,
+which is proved to be NP-hard by Krarup and Pruzan ( 1983). The proposed model with
+multilevel capacities is even harder to solve than the classical TSCFLP using an exact
+method (via an optimizer software such as CPLEX, Lindo, and Xpress) especially when
+the size of the problem is relatively large. To overcome this weakness a matheuristic
+approach is developed by integrating an aggregation technique and an exact method. We
+refer to this method as a Matheuristic Approach incorporating an Aggregation Technique
+(MAA T).
+When the location problems involve a large number of demand points, it may be sometimes
+impossible and time consuming to solve to optimality (Francis et al.2009). It is quite common
+to aggregate demand points/depots when solving large scale location problems. The main
+idea behind the aggregation is to simplify the problem by reducing the number of demand
+points/depots to be small enough that an optimiser can be used to solve the reduced problem
+within a reasonable amount of computing time. However, the approximation involved may
+lead to a level of sub-optimality when the aggregated solution is put into practice in the actual
+real-world situation. The aggregation technique has successfully addressed large facility
+location problems such as for large p-median (Irawan et al. 2014; Irawan and Salhi 2015a)
+and p-centre problems (Irawan et al. 2016). A review on aggregation techniques for large
+facility location problems is provided by Irawan and Salhi ( 2015b).
+123
+
+--- PAGE 7 ---
+Ann Oper Res (2019) 272:41–67 47
+Fig. 1 The proposed matheuristic approach (MAA T)
+The proposed matheuristic approach (MAA T) is developed to solve both Models A and
+B presented in Sect. 2. Matheuristics have been successfully used to solve tackle facility
+location problems (Stefanello et al. 2015; Irawan et al. 2017a, b). The proposed method
+consists of three stages where the main steps of this approach are depicted in Fig. 1.T h eﬁ r s t
+stage is an iterative process that incorporates the aggregation of potential depot sites and the
+implementation of the proposed local search. Firstly, m potential depot sites are aggregated
+into μ potential sites, with μ< < m.T h ev a l u eo fmis determined based on the maximum
+number (upper bound) of the facilities that need to be opened (ρ).T h ev a l u eo fρ can be
+approximated by following expressions:
+ρ = Max
+p∈P
+⎛
+⎜⎜⎝
+∑
+k∈K wkp
+Min
+j∈J
+(
+Min
+d∈D jp
+(
+ˆb jpd
+) )
+⎞
+⎟⎟⎠ for Model A (20)
+123
+
+--- PAGE 8 ---
+48 Ann Oper Res (2019) 272:41–67
+ρ = Max
+p∈P
+⎛
+⎜⎜
+⎜
+⎜⎝
+∑
+k∈K
+(
+wkp · αp
+)
+Min
+j∈J
+(
+Min
+d∈ ˆD j
+(
+ˆb jd
+) )
+⎞
+⎟⎟
+⎟
+⎟⎠
+for Model B (21)
+Here, μ = β·ρ where β is a parameter. When choosing the aggregated potential depot sites,
+the aggregation includes the depot sites obtained from the previous iteration (the best solution,
+S∗). The remaining (μ −| S ∗|) potential depots are randomly chosen from the mpotential
+depot sites. The main idea behind this is to make sure that the reduced problem has a feasible
+solution. The resulting aggregated problem with l plants, μdepots and n customers is then
+solved by CPLEX withinτseconds. A duality gap (%Gap) is also set as a termination criterion
+where CPLEX will stop when the %Gap reaches ε%. Let Z be the terminating objective
+function value and S be the corresponding vector of the obtained facility conﬁguration.
+The description of the proposed local search is presented in the following subsection. The
+obtained depots location conﬁguration, if it is better than the previous one, is then fed to the
+next iteration as part of the set of the aggregated potential depot sites. The process is repeated
+T times and the best solution (S∗) from this step will be fed to the next step. The values of β
+and T inﬂuence the quality of the solution obtained. The chance of getting a better solution
+is higher when the values of β and T are set higher as this will increase diversiﬁcation.
+However, the computational time also increases for higher values of β and T .
+In the second stage (Stage 2), the proposed local search is applied to solve the original
+problem (without aggregation) starting from the best depot conﬁguration obtained from the
+previous stage. The obtained solution (S∗) from the local search on the original problem is
+then fed into the ﬁnal stage where the mathematical formulation of Model A or Model B is
+solved by an exact method (CPLEX). In the ﬁnal stage, when solving Model A and Model
+B, the number of potential depots is reduced from m to |S ∗| . In other words, the set of
+potential depot sites (J) is replaced by S∗ (the incumbent solution). CPLEX will ﬁnd the
+best location to open the depots (if necessary), determine the best capacity for each opened
+depot, the products ﬂows (integer) from plants to depots and from depots to customers, and
+calculate the objective function value (Z∗).
+3.1 The proposed local search
+The proposed local search is a hybridisation of the fast interchange heuristic proposed by
+Whitaker (1983) and an exact method. We enhance the heuristic by incorporating the exact
+method to solve the multi-product capacitated transhipment problem (MPTP). The exact
+method is integrated within the local search to optimally solve the transhipment problem
+whenever the locations of opened depots along with their capacity are known/ﬁxed. Moreover,
+we also enhance this heuristic by replacing a depot in the current solution with the potential
+depot (not in current solution) that is not too far from the removed depot. By restricting the
+search, the local search runs relatively fast at the expense of a small loss in quality.
+For Model A, in the case where the location of the opened depots along with their capacity
+for each product are known, the problem can be treated as the multi-product capacitated
+transhipment problem, which we refer to as the MPTP-A. The MPTP-A is also relatively
+easy to solve when we relax the amount of products transported from one node to others
+to a real value instead of an integer one. The MPTP will hence be a linear programming
+formulation. Let S ⊂ J be the set of opened depots and a
+jp be the product capacity used by
+depot j to store product p. The mathematical model for the MPTP-A is as follows:
+123
+
+--- PAGE 9 ---
+Ann Oper Res (2019) 272:41–67 49
+Decision variables
+Xijp : the amount of product p( p ∈ P) transported from plant i(i ∈ I) to depot j( j ∈ J)
+ˆX jkp : the amount of product p( p ∈ P) transferred from depot j( j ∈ J) to customer
+k(k ∈ K)
+The MPTP-A can be modelled as a linear problem as follows.
+Min
+∑
+j∈S
+˜f j +
+∑
+j∈S
+∑
+p∈P
+ˆf jp ajp +
+∑
+i∈I
+∑
+j∈S
+∑
+p∈P
+(
+Xijp · cijp
+)
++
+∑
+j∈S
+∑
+k∈K
+∑
+p∈P
+(
+ˆX jkp ·ˆc jkp
+)
+(22)
+Subject to∑
+j∈S
+Xijp ≤ sip , ∀i ∈ I, p ∈ P (23)
+∑
+i∈I
+Xijp ≤ ˆb jp ajp , ∀j ∈ S, p ∈ P (24)
+∑
+j∈S
+ˆX jkp = wkp , ∀k ∈ K, p ∈ P (25)
+∑
+i∈I
+Xijp =
+∑
+k∈K
+ˆX jkp , ∀j ∈ S, p ∈ P (26)
+Xijp ≥ 0, ∀i ∈ I, j ∈ S, p ∈ P (27)
+ˆX jkp ≥ 0, ∀j ∈ S, k ∈ K, p ∈ P (28)
+For Model B, similarly to Model A, when the location of the opened depots along with
+their capacities are ﬁxed, the problem can also be treated as the multi-product capacitated
+transhipment problem which we refer to as the MPTP-B.S is also denoted as the set of opened
+depots with ˆa
+j be the volume capacity used by the depot j. The mathematical model for the
+MPTP-B is relatively similar to the one for the MPTP-A with minor revisions in objective
+function (22) and constraints (24). In the MPTP-B, the objective function (22) is replaced by
+objective function (29) as follows:
+Min
+∑
+j∈S
+f j ˆa j +
+∑
+i∈I
+∑
+j∈S
+∑
+p∈P
+(
+Xijp · cijp
+)
++
+∑
+j∈S
+∑
+k∈K
+∑
+p∈P
+(
+ˆX jkp ·ˆc jkp
+)
+(29)
+and constraints (24) are replaced by constraints ( 30) as follows:
+∑
+i∈I
+∑
+p∈P
+(
+Xijp · αp
+)
+≤ b j ˆa j , ∀j ∈ S (30)
+The main steps of the proposed local search are given in Fig. 2 which is based on the fast
+interchange heuristic using a ﬁrst improvement strategy (the exchange process is conducted
+once there is an improvement). The main objective of the algorithm is to seek a potential depot
+to be swapped with a one in the current solution where the swap process will be performed
+if there is an improvement. In this local search, when solving the transhipment problem, all
+potential depots (J) are imposed to use the largest capacity for storing each product (for
+Model A) or the volume (size) of the depot (for Model B).
+In this local search, we ﬁrstly set the maximum computational time (ˆτ) to execute the
+local search. The transhipment problem (MPTP-A and MPTP-B) using the initial solution
+(S) obtained from the previous step is then optimally solved to evaluate the quality of the
+solution (Z). In Steps 3(ii)–3(iii) of Fig. 2, the algorithm aims to allocate the potential
+123
+
+--- PAGE 10 ---
+50 Ann Oper Res (2019) 272:41–67
+Fig. 2 The main steps of the proposed local search
+depots (not in the current solution) to their nearest opened depot (incumbent solution). The
+longest/maximum distance ( ˆds) between the opened depots and their associated potential
+depots is then determined. The main idea behind this is to restrict the search (the swapping
+process) by imposing the condition that the substituted depot location must lie within a certain
+123
+
+--- PAGE 11 ---
+Ann Oper Res (2019) 272:41–67 51
+covering radius (γ· ˆds) from the opened depot that will be removed. This will make the local
+search runs more efﬁcient (in terms of computing time) as the swap process will be skipped
+when the substituted depot is relatively far from the opened depot that will be removed. In
+Step 3(iv)a, potential depot j( j ∈ J, j /∈ S) is inserted into the solution whereas opened
+depot sin the current solution is removed. Then, the transhipment problem (MPTP-A and
+MPTP-B) using S
+′ is solved to optimality. In Step 3(iv)d, the swap will be conducted if
+there is an improvement. The local search will terminate if there is no improvement after all
+possible swaps based on the incumbent solution have been completed or if the computing
+time reaches ˆτ seconds.
+4 Computational study
+A set of computational experiments have been carried out to evaluate the performance of the
+proposed solution method. The proposed method was implemented/coded in C++, .Net 2012
+where the IBM ILOG CPLEX version 12.6 Concert Library is used to solve the problems
+with exact method. The tests were run on a PC with an Intel Core i5 CPU @ 3.20 GHz
+processor and 8.00 GB of RAM. In the computational experiments, two types of dataset are
+used. The ﬁrst dataset (Dataset 1) is randomly generated to evaluate our solution method’s
+ability to solve the two-stage capacitated facility location problem considering the presence
+of multilevel capacities for both models A and B. The second dataset is constructed based
+on the datasets from the literature and the wind energy industry in the UK. For the case
+study on the wind industry, the proposed model will be implemented to ﬁnd the optimal
+locations for depots required for storing spare parts to support the operation and maintenance
+of offshore/onshore wind farms.
+To evaluate the performance of the proposed matheuristic approach (MAA T), we compare
+the solutions obtained by the proposed method with those of the exact method (using IBM
+ILOG CPLEX version 12.63). As the problem is very hard to solve to optimality, the com-
+putational time (CPU) for solving the problem using the exact method (CPLEX) is limited
+to 3 h so the lower bound (LB) and upper bound (UB) can be attained. The performance of
+the proposed matheuristic method will be measured by %Gap between the Z value attained
+by the matheuristic approach and the lower bound (LB) obtained from the exact method.
+Moreover, the %Gap is also set as a termination criterion where CPLEX will stop when the
+%Gap reached 0.01%. %Gap is calculated as follows:
+%Gap = Z
+m − LB
+Zm
+× 100 (31)
+where Zm refers to the feasible solution cost obtained by either the exact method (UB) or
+the proposed matheuristic approach. In the matheuristic approach, the parameters are set to
+the following values: T = 10,β = 1.5,τ = 150 s, ε= 0.5%,τ
+′ = 108 s, ˆτ = 0.25 · n · |P|
+seconds and γ = 2.5. For solving Model B, we set the value of β to 2 for |P| = 10 and
+to 3 for |P| = 5. Those parameters were selected based on a small preliminary study. This
+selection yields an acceptable performance with respect to the quality of the solution and the
+computational effort.
+4.1 Experiments on the randomly generated data (Dataset 1)
+In order to conduct extensive computational experiments, we generate a new dataset which
+we refer to as Dataset 1. This dataset consists of two instances, namely Instance 1A and
+123
+
+--- PAGE 12 ---
+52 Ann Oper Res (2019) 272:41–67
+Instance 1B. Instance 1A is used to evaluate the performance of our method when solv-
+ing Model A whereas Instance 1B is for Model B. For Instance 1A, there are 20 problems
+to solve whereas Instance 1B consists of 15 problems. We set the number of products |P|
+to 5 or 10. The number of plants (l) is varied between 5 and 25 with an increment of 5
+whereas the value of mfrom 50 to 500 with an increment of 50. The number of customers
+(n) is set to 2 m with the demand of each customer randomly generated between 1 and
+5 for each product. The location of plants, warehouses and customers are generated ran-
+domly using a uniform distribution where ℜ
+2(n × n) and the coordinates values are integer.
+The capacity of a plant for each product (sip ) is generated based on the customer demand.
+It is assumed that there are three possible capacities for each product for each potential
+depot (|D
+jp |=| ˆD j |= 3; j = 1,..., m; p ∈ P). We also generate the capacities (capac-
+ity/size) of each potential depot for each product (ˆbpd and b jd ) and its ﬁxed (opening) cost
+along with the transportation cost per km per product. Here, we construct the dataset in
+such way that in a good solution, the total opening cost is close to the total transportation
+cost.
+4.1.1 Computational results on Instance 1A
+The computational results on Instance 1A are presented in Tables 1 and 2,w h i c hs h o w
+the computational results using the exact method (CPLEX) and the proposed matheuristic
+approach respectively. According to the tables, the complexity of the problem increases when
+the size of the problem increases as shown by the %Gap value. It is worth noting that when
+the number of products (|P|) is higher, the problem is more difﬁcult to solve. According to
+the results shown in Table 1, the problems with |P| = 5a n d n ≤ 200 were relatively easily
+solved by the exact method. In these problems, the %Gap between UB and LB obtained
+is the requested %Gap termination criterion for CPLEX to solve the problem (i.e. a %Gap
+of 0.01%). In other words, CPLEX terminated before time based termination criterion of
+3h .
+Using the exact method, the %Gap value produced is relatively very high when n ≥ 700.
+On average, the exact method yielded a %Gap of 20.64% which is considered as a large value.
+The exact method also produced the average portion of ﬁxed (opening) costs of 61.98%.
+The proposed matheuristic method (MAA T) made a signiﬁcant improvement in producing
+solutions on Instance 1A as it provides a better %Gap than the exact method. MAA T produced
+%Gap of 5.71%, an improvement of almost 15% compared to that of the exact method. The
+use of MAA T also reduced the average portion of the ﬁxed costs to 41.86, 20.12% lower
+than that obtained by the exact method. Moreover, MAA T required less than a quarter of the
+computational time required by CPLEX.
+Figure 3 shows the location of the opened facilities for problem P1-I3(n = 200 and |P|=
+5) where from 100 potential depots, only 9 need to be opened in order to serve 200 customers.
+These opened depots will receive 5 types of products from 5 plants and will transfer them to
+the 200 customers. Here, the demand of a customer for each product is randomly generated
+between 1 and 5 following a uniform distribution.
+Table 3 presents the capacity of each plant for each product (p1 – p5) used in problem
+P1-I3 (n = 200 and |P|= 5) where the location of the plants (x and y co-ordinates) is also
+given. This problem consists of 100 potential depots, each of which has 3 possible capacities
+to choose from (30, 50, and 70) for each product. In the solution, only 9 depots are selected to
+be opened in order to minimise the total cost. Their locations and capacity for each product
+are given in Table 4.
+123
+
+--- PAGE 13 ---
+Ann Oper Res (2019) 272:41–67 53
+Table 1 Computational results on Instance 1A using the exact method (CPLEX)
+Instance lmn |P| Exact method (CPLEX)
+UB LB Opening cost Trans cost #Opened
+warehouse
+Gap (%) CPU (s)
+P1-I1 5 50 100 5 859 ,476.96 859 ,391.60 522 ,757.00 336 ,719.96 5 0 .01 482
+P1-I2 5 50 100 10 1 ,712,188.94 1 ,701,654.15 987 ,330.00 724 ,858.94 5 0 .62 10 ,943
+P1-I3 5 100 200 5 2 ,144,357.91 2 ,144,190.15 1 ,243,286.00 901 ,071.91 9 0 .01 791
+P1-I4 5 100 200 10 4 ,073,169.87 4 ,028,864.08 2 ,170,745.00 1 ,902,424.87 10 1 .09 10 ,860
+P1-I5 10 150 300 5 4 ,126,418.68 3 ,998,710.75 2 ,469,046.00 1 ,657,372.68 11 3 .09 10 ,801
+P1-I6 10 150 300 10 7 ,321,442.84 7 ,116,346.01 3 ,825,913.00 3 ,495,529.84 11 2 .80 10 ,801
+P1-I7 10 200 400 5 5 ,666,516.04 5 ,592,849.34 2 ,974,646.00 2 ,691,870.04 14 1 .30 10 ,801
+P1-I8 10 200 400 10 10 ,903,602.94 10 ,378,356.86 5 ,497,694.00 5 ,405,908.94 18 4 .82 10 ,806
+P1-I9 15 250 500 5 7 ,829,092.39 7 ,653,136.80 4 ,318,985.00 3 ,510,107.39 15 2 .25 10 ,802
+P1-I10 15 250 500 10 14 ,977,757.65 13 ,817,883.90 7 ,338,672.00 7 ,639,085.65 19 7 .74 10 ,824
+P1-I11 15 300 600 5 9 ,999,728.25 9 ,902,291.61 5 ,310,636.00 4 ,689,092.25 18 0 .97 10 ,818
+P1-I12 15 300 600 10 20 ,279,353.91 18 ,207,948.75 9 ,690,427.00 10 ,588,926.91 27 10 .21 10 ,830
+P1-I13 20 350 700 5 13 ,715,668.37 13 ,009,705.95 7 ,012,801.00 6 ,702,867.37 20 5 .15 10 ,822
+P1-I14 20 350 700 10 70 ,181,688.23 22 ,909,924.38 56 ,227,713.00 13 ,953,975.23 126 67 .36 10 ,823
+P1-I15 20 400 800 5 24 ,877,115.19 16 ,217,960.91 8 ,680,901.00 16 ,196,214.19 26 34 .81 10 ,829
+P1-I16 20 400 800 10 73 ,306,428.25 29 ,114,849.83 54 ,305,006.00 19 ,001,422.25 122 60 .28 10 ,899
+P1-I17 25 450 900 5 21 ,937,922.52 20 ,166,331.34 9 ,615,279.00 12 ,322,643.52 23 8 .08 11 ,128
+P1-I18 25 450 900 10 182 ,048,139.23 37 ,321,943.86 122 ,778,690.00 59 ,269,449.23 290 79 .50 10 ,853
+P1-I19 25 500 1000 5 36 ,434,926.44 20 ,162,054.28 22 ,961,457.00 13 ,473,469.44 63 44 .66 10 ,839
+P1-I20 25 500 1000 10 162 ,989,855.27 35 ,638,668.27 90 ,669,680.00 72 ,320,175.27 204 78 .13 10 ,836
+Average 61.98% 38 .02% 20 .64 9829
+123
+
+--- PAGE 14 ---
+54 Ann Oper Res (2019) 272:41–67
+Table 2 Computational results on Instance 1A using the proposed matheuristic (MAA T)
+Instance lmn |P| Proposed method (MAA T)
+Z Opening cost Trans cost #Opened
+warehouse
+Gap (%) CPU (s)
+P1-I1 5 50 100 5 859 ,476.96 522 ,757.00 336 ,719.96 5 0 .01 280
+P1-I2 5 50 100 10 1 ,712,188.94 987 ,330.00 724 ,858.94 5 0 .62 1513
+P1-I3 5 100 200 5 2 ,145,765.68 1 ,238,109.00 907 ,656.68 9 0 .07 158
+P1-I4 5 100 200 10 4 ,037,304.59 2 ,114,043.00 1 ,923,261.59 9 0 .21 1426
+P1-I5 10 150 300 5 4 ,109,961.31 2 ,389,520.00 1 ,720,441.31 11 2 .71 1566
+P1-I6 10 150 300 10 7 ,382,210.77 3 ,943,396.00 3 ,438,814.77 12 3 .60 2274
+P1-I7 10 200 400 5 5 ,643,344.35 2 ,976,763.00 2 ,666,581.35 14 0 .89 1842
+P1-I8 10 200 400 10 10 ,641,952.47 4 ,823,194.00 5 ,818,758.47 14 2 .48 2551
+P1-I9 15 250 500 5 7 ,825,737.00 4 ,327,034.00 3 ,498,703.00 15 2 .21 2148
+P1-I10 15 250 500 10 14 ,140,941.51 6 ,769,712.00 7 ,371,229.51 16 2 .28 2863
+P1-I11 15 300 600 5 10 ,001,371.47 5 ,014,685.00 4 ,986,686.47 17 0 .99 1181
+P1-I12 15 300 600 10 18 ,629,034.83 7 ,955,486.00 10 ,673,548.83 18 2 .26 2773
+P1-I13 20 350 700 5 13 ,560,042.21 6 ,230,160.00 7 ,329,882.21 17 4 .06 2387
+P1-I14 20 350 700 10 26 ,480,196.77 11 ,433,330.00 15 ,046,866.77 23 13 .48 3365
+P1-I15 20 400 800 5 17 ,366,924.80 7 ,453,322.00 9 ,913,602.80 20 6 .62 2524
+P1-I16 20 400 800 10 33 ,701,979.71 12 ,915,094.00 20 ,786,885.71 26 13 .61 3617
+P1-I17 25 450 900 5 21 ,680,084.47 8 ,682,694.00 12 ,997,390.47 20 6 .98 2678
+P1-I18 25 450 900 10 45 ,050,134.09 15 ,457,377.00 29 ,592,757.09 26 17 .15 3776
+P1-I19 25 500 1000 5 23 ,184,691.70 9 ,987,495.00 13 ,197,196.70 23 13 .04 2858
+P1-I20 25 500 1000 10 45 ,061,614.02 15 ,884,255.00 29 ,177,359.02 26 20 .91 4120
+Average 41.86% 58 .14% 5 .71 2295
+123
+
+--- PAGE 15 ---
+Ann Oper Res (2019) 272:41–67 55
+Fig. 3 The location of opened depots for problem P1-I3 ( n = 200 and |P|= 5)
+Table 3 The capacity of plants
+used in problem P1-I3
+(n = 200 and |P|= 5)
+Plant Location Capacity
+x y p1 p2 p3 p4 p5
+1 170 38 132 134 125 136 129
+2 139 177 126 132 136 134 129
+3 28 129 128 125 124 125 130
+4 76 33 126 126 129 131 132
+5 133 197 132 121 128 134 132
+Table 4 The capacity of depots
+in the solution for problem P1-I3
+(n = 200 and |P|= 5)
+Depot Location Capacity
+x y p1 p2 p3 p4 p5
+1 165 88 70 70 50 70 70
+2 141 199 70 70 70 70 70
+3 44 139 70 70 70 70 70
+4 6 9 2 77 07 07 07 07 0
+5 163 46 70 70 70 70 70
+6 132 142 70 70 70 70 70
+7 5 113 50 70 50 50 50
+8 111 185 70 70 70 70 70
+9 6 6 6 35 07 07 07 07 0
+123
+
+--- PAGE 16 ---
+56 Ann Oper Res (2019) 272:41–67
+4.1.2 Computational results on Instance 1B
+Tables 5 and 6 reveal the computational results on Instance 1B using the exact method
+and the proposed method (MAA T) respectively. In this instance, CPLEX was not able
+to solve the problem with n ≥ 600 and |P|= 10 due to memory issues. There-
+fore, this instance only consists of 15 problems instead of 20. Using the exact method,
+without the problems with n ≥ 600 and |P|= 10, the %Gap value obtained is rel-
+atively low as on average, the exact method provided %Gap of 2.82%. The average
+proportion of ﬁxed costs from the total cost is 38.29% with the total transportation cost
+contributing the remainder. Similarly to the previous experiments, the proposed matheuris-
+tic method (MAA T) performed very well in solving the problems in this instance. The
+MAA T produced a %Gap of 2.47%, which is better than that obtained by the exact method.
+Compared to the exact method, the use of the MAA T decreased the average propor-
+tion of the ﬁxed cost by 1.6–36.69%. Similarly to previous experiments, the MAA T also
+required less than a quarter of the computational time required by the exact method. In
+general, based on the computational experiments on Dataset 1, the proposed matheuris-
+tic technique (MAA T) runs much faster than the exact method while yielding smaller
+%Gaps.
+4.2 Experiments on datasets from the literature and wind energy industry
+The performance of our proposed approach is also assessed on an existing dataset taken from
+literature and those used in the wind energy industry.
+4.2.1 Experiments on the existing dataset
+We test our proposed method on data sets from Eskandarpour et al. ( 2017) originally
+used for solving a supply chain network design problem. This existing dataset provides
+the location of plants, depots and customers where the customer demand for 5 products
+(|P| = 5) is also given. Here, we use Model A to solve this existing dataset as there is
+no information related to the dimension of each product. The missing information required
+to solve Model A is generated based on the total demand for each product. We estimate
+the capacity of plants and depots along with the ﬁxed cost of opening depot based on its
+capacity in such way that in a good solution, the total transportation cost is close to the
+total ﬁxed cost. The existing dataset consists of 15 problems where the number of customer
+(n) is varied between 60 and 300. Therefore, it can be argued that this existing dataset
+is relatively small and easier to solve by the exact method than the datasets presented in
+Sect. 4.1.
+Tables 7 and 8 show the computational results on the existing dataset using the exact
+method and the proposed method (MAA T) respectively. According to Table 7, CPLEX ter-
+minated before the time based termination criterion of 3 h for 11 of 15 problems where
+CPLEX stopped because the %Gap between UB and LB has reached the termination level of
+0.01%. For the other four problems, the %Gap obtained by CPLEX for these problems is very
+low after the time based termination criterion of 3 h, indicating near-optimality. On average,
+the exact method produced a relatively small %Gap of 0.08% with the total transportation
+cost contributing approximately 40% of the total cost. The proposed matheuristic method
+(MAA T) also performs well in this instance. The MAA T yielded a %Gap of 0.1% within a
+relatively short computational time.
+123
+
+--- PAGE 17 ---
+Ann Oper Res (2019) 272:41–67 57
+Table 5 Computational results on Instance 1B using the exact method (CPLEX)
+Instance lmn |P| Exact method (CPLEX)
+UB LB Opening cost Trans cost #Opened
+warehouse
+Gap (%) CPU (s)
+P2-I1 5 50 100 5 8 ,705,619.63 8 ,704,911.45 5 ,209,800.00 3 ,495,819.63 3 0 .01 157
+P2-I2 5 50 100 10 17 ,002,283.03 17 ,000,961.88 9 ,978,990.00 7 ,023,293.03 5 0 .01 118
+P2-I3 5 100 200 5 17 ,621,670.75 17 ,619,909.10 8 ,918,790.00 8 ,702,880.75 5 0 .01 815
+P2-I4 5 100 200 10 37 ,125,285.84 37 ,076,857.88 19 ,391,400.00 17 ,733,885.84 10 0 .13 10 ,801
+P2-I5 10 150 300 5 29 ,401,199.80 29 ,396,265.25 14 ,113,200.00 15 ,287,999.80 8 0 .02 10 ,862
+P2-I6 10 150 300 10 61 ,805,645.90 59 ,680,626.30 28 ,637,940.00 33 ,167,705.90 15 3 .44 10 ,801
+P2-I7 10 200 400 5 43 ,257,673.12 42 ,823,901.32 17 ,943,030.00 25 ,314,643.12 10 1 .00 10 ,802
+P2-I8 10 200 400 10 92 ,815,595.76 91 ,612,669.66 39 ,252,480.00 53 ,563,115.76 20 1 .30 10 ,811
+P2-I9 15 250 500 5 59 ,322,626.11 58 ,633,420.67 24 ,227,850.00 35 ,094,776.11 14 1 .16 10 ,802
+P2-I10 15 250 500 10 92 ,610,158.16 91 ,612,669.66 39 ,280,980.00 53 ,329,178.16 20 1 .08 10 ,824
+P2-I11 15 300 600 5 85 ,853,076.49 79 ,009,642.12 33 ,168,870.00 52 ,684,206.49 19 7 .97 10 ,848
+P2-I12 20 350 700 5 99 ,449,406.72 94 ,600,290.81 35 ,824,500.00 63 ,624,906.72 21 4 .88 10 ,810
+P2-I13 20 400 800 5 133 ,408,734.87 121 ,513,227.81 47 ,600,130.00 85 ,808,604.87 27 8 .92 10 ,807
+P2-I14 25 450 900 5 150 ,229,927.89 141 ,311,588.41 44 ,080,950.00 106 ,148,977.89 25 5 .94 10 ,926
+P2-I15 25 500 1000 5 161 ,221,522.14 150 ,710,307.76 49 ,644,150.00 111 ,577,372.14 27 6 .52 11 ,059
+Average 38.29% 61 .71% 2 .82 8750
+123
+
+--- PAGE 18 ---
+58 Ann Oper Res (2019) 272:41–67
+Table 6 Computational results on Instance 1B using the proposed matheuristic (MAA T)
+Instance lmn |P| Proposed method (MAA T)
+Z Opening cost Trans cost #Opened
+warehouse
+Gap (%) CPU (s)
+P2-I1 5 50 100 5 8 ,705,619.63 5 ,209,800.00 3 ,495,819.63 3 0 .01 11
+P2-I2 5 50 100 10 17 ,002,886.93 9 ,978,990.00 7 ,023,896.93 5 0 .01 95
+P2-I3 5 100 200 5 17 ,621,670.75 8 ,918,790.00 8 ,702,880.75 5 0 .01 112
+P2-I4 5 100 200 10 37 ,150,129.40 19 ,392,540.00 17 ,757,589.40 10 0 .20 1331
+P2-I5 10 150 300 5 29 ,401,746.54 14 ,113,200.00 15 ,288,546.54 8 0 .02 558
+P2-I6 10 150 300 10 60 ,796,006.69 29 ,039,220.00 31 ,756,786.69 17 1 .87 3266
+P2-I7 10 200 400 5 43 ,060,704.37 17 ,897,430.00 25 ,163,274.37 10 0 .55 2221
+P2-I8 10 200 400 10 95 ,356,426.66 41 ,173,950.00 54 ,182,476.66 22 4 .09 3545
+P2-I9 15 250 500 5 60 ,038,502.75 24 ,243,810.00 35 ,794,692.75 14 2 .40 2248
+P2-I10 15 250 500 10 95 ,356,426.66 41 ,173,950.00 54 ,182,476.66 22 4 .09 3544
+P2-I11 15 300 600 5 81 ,690,709.57 27 ,342,900.00 54 ,347,809.57 15 3 .39 3259
+P2-I12 20 350 700 5 96 ,110,675.18 32 ,248,890.00 63 ,861,785.18 19 1 .60 3384
+P2-I13 20 400 800 5 129 ,100,367.37 39 ,013,080.00 90 ,087,287.37 22 6 .24 3554
+P2-I14 25 450 900 5 151 ,004,365.49 41 ,628,810.00 109 ,375,555.49 24 6 .86 3644
+P2-I15 25 500 1000 5 159 ,230,859.30 45 ,434,130.00 113 ,796,729.30 25 5 .65 3824
+Average 36.69% 63 .31% 2 .47 2306
+123
+
+--- PAGE 19 ---
+Ann Oper Res (2019) 272:41–67 59
+Table 7 Computational results on dataset from literature using the exact method (CPLEX)
+Instance lm n |P| Exact method (CPLEX)
+UB LB Opening cost Trans cost #Opened
+warehouse
+Gap (%) CPU (s)
+P3-I1 6 12 60 5 55 ,572,897.41 55 ,567,375.30 31 ,694,532.00 23 ,878,365.41 5 0 .01 8
+P3-I2 7 14 70 5 69 ,069,021.29 69 ,062,114.65 37 ,191,446.00 31 ,877,575.29 6 0 .01 1704
+P3-I3 8 16 80 5 74 ,571,746.05 74 ,564,294.64 40 ,420,666.00 34 ,151,080.05 6 0 .01 94
+P3-I4 9 18 90 5 79 ,786,050.94 79 ,778,073.22 44 ,820,870.00 34 ,965,180.94 7 0 .01 44
+P3-I5 10 20 100 5 90 ,176,144.57 90 ,167,134.89 51 ,333,757.00 38 ,842,387.57 8 0 .01 78
+P3-I6 12 24 120 5 101 ,419,657.45 101 ,409,807.72 60 ,491,320.00 40 ,928,337.45 9 0 .01 49
+P3-I7 14 28 140 5 113 ,780,685.86 113 ,769,538.12 68 ,022,247.00 45 ,758,438.86 10 0 .01 57
+P3-I8 16 32 160 5 118 ,342,803.59 118 ,330,984.06 66 ,928,149.00 51 ,414,654.59 12 0 .01 133
+P3-I9 18 36 180 5 124 ,577,109.01 123 ,981,600.48 77 ,525,132.00 47 ,051,977.01 14 0 .48 10 ,809
+P3-I10 20 40 200 5 132 ,750,121.65 132 ,736,847.40 83 ,315,233.00 49 ,434,888.65 15 0 .01 6960
+P3-I11 22 44 220 5 144 ,228,937.54 144 ,214,536.07 90 ,863,183.00 53 ,365,754.54 16 0 .01 1362
+P3-I12 24 48 240 5 135 ,764,873.31 135 ,664,313.75 82 ,409,927.00 53 ,354,946.31 18 0 .07 10 ,863
+P3-I13 26 52 260 5 150 ,178,953.14 150 ,163,938.36 90 ,012,918.00 60 ,166,035.14 19 0 .01 2733
+P3-I14 28 56 280 5 151 ,777,649.65 151 ,658,391.53 95 ,612,554.00 56 ,165,095.65 21 0 .08 10 ,908
+P3-I15 30 60 300 5 161 ,772,569.23 160 ,907,532.51 101 ,155,572.00 60 ,616,997.23 22 0 .53 10 ,864
+Average 59.97% 40 .03% 0 .08 3778
+123
+
+--- PAGE 20 ---
+60 Ann Oper Res (2019) 272:41–67
+Table 8 Computational results on dataset from literature using the proposed matheuristic (MAA T)
+Instance lm n |P| Proposed method (MAA T)
+Z Opening cost Trans cost #Opened
+warehouse
+Gap (%) CPU (s)
+P3-I1 6 12 60 5 55 ,572,897.41 31 ,694,532.00 23 ,878,365.41 5 0 .01 10
+P3-I2 7 14 70 5 69 ,069,021.29 37 ,191,446.00 31 ,877,575.29 6 0 .01 120
+P3-I3 8 16 80 5 74 ,571,746.05 40 ,420,666.00 34 ,151,080.05 6 0 .01 92
+P3-I4 9 18 90 5 79 ,786,050.94 44 ,820,870.00 34 ,965,180.94 7 0 .01 50
+P3-I5 10 20 100 5 90 ,176,144.57 51 ,333,757.00 38 ,842,387.57 8 0 .01 183
+P3-I6 12 24 120 5 101 ,419,657.45 60 ,491,320.00 40 ,928,337.45 9 0 .01 42
+P3-I7 14 28 140 5 113 ,780,685.86 68 ,022,247.00 45 ,758,438.86 10 0 .01 100
+P3-I8 16 32 160 5 118 ,347,599.15 66 ,830,463.00 51 ,517,136.15 12 0 .01 83
+P3-I9 18 36 180 5 124 ,647,837.60 78 ,115,821.00 46 ,532,016.60 14 0 .54 1513
+P3-I10 20 40 200 5 132 ,750,705.22 83 ,320,873.00 49 ,429,832.22 15 0 .01 1041
+P3-I11 22 44 220 5 144 ,228,937.54 90 ,863,183.00 53 ,365,754.54 16 0 .01 1075
+P3-I12 24 48 240 5 135 ,788,271.73 82 ,440,405.00 53 ,347,866.73 18 0 .09 1449
+P3-I13 26 52 260 5 150 ,178,953.14 90 ,012,918.00 60 ,166,035.14 19 0 .01 426
+P3-I14 28 56 280 5 151 ,905,199.85 94 ,648,871.00 57 ,256,328.85 21 0 .16 1503
+P3-I15 30 60 300 5 161 ,848,997.48 101 ,441,406.00 60 ,407,591.48 22 0 .59 1542
+Average 59.95% 40 .05% 0 .10 615
+123
+
+--- PAGE 21 ---
+Ann Oper Res (2019) 272:41–67 61
+4.2.2 Experiments on dataset from the wind energy industry
+Renewable energy sources have attracted a lot of attention in recent years due to several factors
+including a surge in the world energy demand, limitation of fossil fuel reserves, fossil fuel
+price instability and global climate change (Abdmouleh et al.2015). The UK Government has
+set a national target for 15% of its total energy consumption to come from renewable sources
+by 2020, of which it is expected that wind energy will make the largest single contribution
+to this target (Jones and Wall 2016). A wind farm can be located either onshore or offshore.
+The development of the offshore wind industry has signiﬁcantly increased over the past 20
+years. One of the reasons for this growth is that a wind turbine at sea generally produces
+more electricity than that of its onshore equivalent as the average wind speed at sea is higher
+(Irawan et al. 2017a, b).
+The operations and maintenance (O&M) cost is one of the largest components of the cost
+of a wind farm. One way to reduce the costs is to make the maintenance activities more
+efﬁcient by optimising the logistic system in order to reduce turbine downtime. The logistic
+system should hence be designed to ensure that the spare parts are available and easy to
+be access when they are needed. In the wind energy sector, spare parts are complex and
+expensive, characterized by high procurement costs and low inventory levels (Tracht et al.
+2013). However, it is critical to manage and maintain an adequate level of spare parts as
+inadequate stocks when a part fails may stop electricity generation and lead to substantial
+losses.
+Spare parts supplied by plants are delivered to capacitated depots, and then distributed
+to Operation & Maintenance bases (O&M bases). Depots are usually located near to or at
+the O&M base locations. However, as the inventory levels of the spare parts are relatively
+low, depots may not be opened at all O&M bases. This means that a depot may serve more
+than one O&M base. Moreover, a depot may not store the same parts as other depots. For
+an example, depot A may store only blades and bearing generators whereas depot B may
+manage transformers and yaw motors.
+Optimization of the location and capacity of maintenance accommodations for offshore
+wind farms has been investigated by a few researchers. De Regt ( 2012) studied the optimal
+location of offshore maintenance accommodations by solving a ‘Weber’ problem to minimise
+the weighted sum of distances to given points. Besnard et al. (2013) introduced an optimisation
+model to ﬁnd the optimal location of maintenance accommodations, number of technicians,
+choice of transfer vessels and the possibility of using a helicopter to service offshore wind
+farms.
+This section presents computational results of the facility location model for ﬁnding the
+optimal number of depots that need to be opened along with their optimal locations in
+order to support operation and maintenance of offshore/onshore wind farms in the UK.
+The capacity to store spare parts for each opened depot is also optimised. Here, Model
+A is most suitable to be implemented for this case study as the dimension of spare parts
+and the volume of potential depots are difﬁcult to estimate. In this case, warehouses are
+treated as depots whereas O&M bases act as customers. The model aims to minimise
+the total cost which comprises shipment costs (with downtime cost) and capital costs
+incurred by opening depots. A set of possible product capacities is given where each
+capacity has a different annual ﬁxed cost which may consist of opening depot and inven-
+tory costs. The transfer cost of each component from plants to depots comprises shipping
+and product costs whereas the one from depots to O&M bases considers downtime and
+shipping costs. The model will also ﬁnd the optimal number of depots that need to be
+opened.
+123
+
+--- PAGE 22 ---
+62 Ann Oper Res (2019) 272:41–67
+It is common in the wind energy industry that a depot is built to store spare parts of
+one type of wind turbine. In this case study, the type of wind turbines that we study is
+V estas V80/90 as the data for this type of turbine is available in the literature. Therefore, we
+take into account all wind farm sites (offshore and onshore) in the UK that use the V estas
+V80/90 wind turbine. Table 9 shows the detailed wind farm data of sites in the UK that
+use the V estas V80/90 ( www.renewableuk.com) including the West Gabbard offshore site
+which is currently still under construction. The table presents the location of wind farms
+along with number of turbines and installed capacity. Moreover, the table also reveals the
+location of the associated O&M base for each wind farm. These O&M base locations are
+also treated as potential depot locations. Table 10 shows the detailed information on parts
+considered in the case study where the cost and failure rate of each part are given. The part
+information is based on Lindqvist and Lundin ( 2010). We also assume that all spare parts
+are supplied by the manufacturer V estas located in Randers, Denmark whose coordinates
+are (Lat 56.433127, Lon 10.047057). In other words, the number of plants is set to one
+(l = 1).
+A wind farm, consisting of several wind turbines with the same speciﬁcation, is treated
+as a customer. A wind turbine is formed of several parts which are considered as prod-
+ucts. The average frequency of failure of the part per year is deﬁned as failure rate.
+Therefore, the demand of each part per year for a windfarm is then based on the num-
+ber of turbines in the windfarm and its failure rate. In other words, the demand of each
+spare part per year for each wind farm is calculated as the product of the failure rate
+value and the number of turbines installed in a wind farm. This is acceptable as the
+number of spare parts needed is determined by how often the part breaks down. Table
+10 also presents the possible depot capacities for each spare part, generated based on
+the demand of each product. The model will select the best capacity for each opened
+depot.
+In the experiments, we also assume that the holding cost per year of each spare part
+is 20% of its cost. This information is used to calculate the ﬁxed cost. The transportation
+cost for each component is based on the distance and we set the maximum transporta-
+tion cost to 20% of the component cost. To implement Model A on this wind energy
+case study, minor revisions of the mathematical model are needed. First, variable X
+jkp
+is treated as a real value instead of an integer as the demand of products for each O&M
+base is calculated based on failure rates. Second, the equalities on Constraints ( 6)a r e
+replaced by inequalities (≥). This dataset can be solved optimally using the exact method
+(CPLEX) within a relatively short computational time as the problem is relatively small
+(l = 1, m = 22, n = 22, and |P|= 36). Therefore, the matheuristic approach (MAA T) is
+not required to solve this instance.
+The optimal solution for this problem reveals that only 4 depots are required to open in
+order to store the spare parts. Three depots are located on the coast, namely Great Y armouth,
+Workington and Ramsgate whereas another depot is located at the Braes of Doune inland
+windfarm site. This solution is acceptable as there are more offshore than onshore wind
+turbines. The other main advantage of locating a depot at port is its accessibility from the
+supplier and customer (O&M base). Moreover, the inland depot is located at the onshore
+windfarm site that has the largest number of wind turbines. It can also be noted that the
+locations of the depots are scattered across the UK. The objective function value (the total
+cost) obtained is 11,451,764.05 where the ﬁxed (opening) cost contributes approximately
+35% of the total cost. Table11 shows the depot conﬁguration located in Port Great Y armouth,
+which stores all types of spare parts in the optimal solution.
+123
+
+--- PAGE 23 ---
+Ann Oper Res (2019) 272:41–67 63Table 9 Wind farms in the UK that use V estas V80/90
+Initial Name Region Latitude Longitude Installed
+capacity (MW)
+Number of
+turbines
+Turbine model O&M base
+Name Latitude Longitude
+Offshore wind farm
+Off1 North Hoyle North Wales 53 .4178 − 3.4478 60 30 V estas V80-2.0 MW Mostyn 53.321279 − 3.262994
+Off2 Scroby Sands Norfolk 52 .6458 1 .7876 60 30 V estas V80-2.0 MW Great Y armouth 52.592932 1.727134
+Off3 Barrow Cumbria 53 .9875 − 3.2702 90 30 V estas V90-3.0 MW Barrow 54.098699 − 3.223713
+Off4 Kentish Flats 1 Kent 51 .4616 1 .0933 90 30 V estas V90-3.0 MW Whitstable 51.362906 1.027905
+Off5 Robin Rigg Cumbria 54 .7465 − 3.6925 180 60 V estas V90-3.0 MW Workington 54.649001 − 3.565064
+Off6 Thanet Kent 51 .4306 1 .6331 300 100 V estas V90-3.0 MW Ramsgate 51.3333 1.41667
+Off7 West Gabbard Suffolk 51 .98 2 .08 375 125 V estas V90-3.0 MW Lowestoft 52.4833 1.75
+Onshore wind farm (O&M base is located in wind farm site)
+On1 Stags Holt Cambridgeshire 52 .57472 − 0.14583 18 9 V estas V80-2.0 MW
+On2 Goonhilly Repowering Cornwall 50 .04611 − 5.19889 12 6 V estas V80-2.0 MW
+On3 Wolf Bog Co Antrim 54 .80306 − 6.09417 10 5 V estas V80-2.0 MW
+On4 North Rhins Dumfries
+&Galloway
+54.88194 − 5.08333 22 11 V estas V80-2.0 MW
+On5 Ardrossan (with Extension) North Ayrshire 55 .68583 − 4.80722 30 15 V estas V80-2.0 MW
+On6 Braes of Doune Stirling 56 .27611 − 4.0625 72 36 V estas V80-2.0 MW
+On7 Pates Hill West Lothian 55 .80889 − 3.59917 14 7 V estas V80-2.0 MW
+On8 Milton Keynes Buckinghamshire 52 .13611 − 0.66444 14 7 V estas V90-2.0 MW
+On9 McCain Foods Cambridgeshire 52 .56111 − 0.17222 9 3 V estas V90-3.0 MW
+On10 North Pickenham Norfolk 52 .62611 0 .74972 14 .4 8 V estas V90-1.8 MW
+On11 Lindhurst Nottinghamshire 53 .11611 − 1.14667 9 5 V estas V90-1.8 MW
+On12 Garves Mountain/Dunloy Antrim 55 .26611 − 6.443222 15 5 V estas V90-3.0 MW
+On13 Slieve Rushen Repowering Co Fermanagh 54 .16 − 7.62 54 18 V estas V90-3.0 MW
+On14 Aikengall East Lothian 55 .92667 − 2.45778 48 16 V estas V90-3.0 MW
+On15 Wardlaw Wood North Ayrshire 55 .71056 − 4.72333 18 6 V estas V90-3.0 MW
+123
+
+--- PAGE 24 ---
+64 Ann Oper Res (2019) 272:41–67
+Table 10 Parts speciﬁcation
+Initial Spare part Price (euro) Failure rate Depot possible
+capacities
+Initial Spare part Price (euro) Failure rate Depot possible
+capacities
+123 123
+S1 Blade 75 ,000 0 .55 1 2 3 S19 SKIIP 2 1800 1 .73 3 6 9
+S2 Proportional valve 1800 5 .48 9 18 27 S20 EMC ﬁlter 1800 5 .48 9 18 27
+S3 Piston accumulator 1800 5 .48 9 18 27 S21 Capacitators 200 17 .32 29 58 86
+S4 Encoder 600 1 .73 3 6 9 S22 CT 3220 FFFF 600 1 .73 3 6 9
+S5 Bearing generator 1800 0 .55 1 2 3 S23 CT 316 VCMS 1800 0 .55 1 2 3
+S6 Generator fan 1 600 0 .55 1 2 3 S24 CT 3601 1800 0 .55 1 2 3
+S7 Generator fan 2 600 1 .73 3 6 9 S25 CT 3133 600 17 .32 29 58 86
+S8 Encoder rotor 200 17 .32 29 58 86 S26 CT 3220 FFFC 1800 1 .73 3 6 9
+S9 Slip ring fan 1800 5 .48 9 18 27 S27 CT 3218 200 1 .73 3 6 9
+S10 Fan 600 0 .55 1 2 3 S28 CT 3614 600 1 .73 3 6 9
+S11 Motor for cooling system 600 5 .48 9 18 27 S29 CT 3363 600 1 .73 3 6 9
+S12 Y aw gear (right) 1800 1 .73 3 6 9 S30 CT 3153 600 5 .48 9 18 27
+S13 Y aw gear (left) 1800 1 .73 3 6 9 S31 CT 279 VOG 200 5 .48 9 18 27
+S14 Y aw motor 1800 0 .55 1 2 3 S32 Transformer 42 ,000 1 .73 3 6 9
+S15 Mechanic gear for oil pump 1800 1 .73 3 6 9 S33 Phase
+compensator
+generator
+600 17 .32 29 58 86
+S16 Chopper module 1800 1 .73 3 6 9 S34 Q8 main switch 3600 17 .32 29 58 86
+S17 TRU card 600 1 .73 3 6 9 S35 Q8 electric gear 1800 5 .48 9 18 27
+S18 SKIIP 1 1800 17 .32 29 58 86 S36 Q8 EMC ﬁlter 200 17 .32 29 58 86
+Failure rate: per 10 6 hours of operation
+123
+
+--- PAGE 25 ---
+Ann Oper Res (2019) 272:41–67 65
+Table 11 The depot
+conﬁguration for Port Great
+Y armouth
+Spare part Capacity
+S1 Blade 3
+S2 Proportional valve 9
+S3 Piston accumulator 9
+S4 Encoder 3
+S5 Bearing generator 1
+S6 Generator fan 1 1
+S7 Generator fan 2 3
+S8 Encoder rotor 29
+S9 Slip ring fan 9
+S10 Fan 1
+S11 Motor for cooling system 9
+S12 Y aw gear (right) 3
+S13 Y aw gear (left) 3
+S14 Y aw motor 1
+S15 Mechanic gear for oil pump 3
+S16 Chopper module 3
+S17 TRU card 3
+S18 SKIIP 1 29
+S19 SKIIP 2 3
+S20 EMC ﬁlter 9
+S21 Capacitators 29
+S22 CT 3220 FFFF 3
+S23 CT 316 VCMS 1
+S24 CT 3601 1
+S25 CT 3133 29
+S26 CT 3220 FFFC 3
+S27 CT 3218 3
+S28 CT 3614 3
+S29 CT 3363 3
+S30 CT 3153 9
+S31 CT 279 VOG 9
+S32 Transformer 9
+S33 Phase compensator generator 29
+S34 Q8 main switch 29
+S35 Q8 electric gear 9
+S36 Q8 EMC ﬁlter 29
+5 Conclusion and suggestions
+This paper studies the two-stage capacitated facility location problem with multilevel capac-
+ities where the problem is to ﬁnd the optimal number of depots that need to be opened
+along with their optimal location and corresponding capacity. We proposed two integer lin-
+ear programming (ILP) models to address the problem in order to minimise the ﬁxed cost
+123
+
+--- PAGE 26 ---
+66 Ann Oper Res (2019) 272:41–67
+of opening depots and transportation costs. The ﬁrst model considers the capacity based on
+the maximum number of products that can be stored whereas in the second one, the capacity
+is based on the size (volume) of the depot. As large problems are very hard to solve using
+an exact method, a matheuristic approach, MAA T (Matheuristic Approach incorporating an
+Aggregation Technique), is introduced to overcome this weakness. The proposed method is
+evaluated using a randomly generated dataset and datasets taken from literature and the wind
+energy sector in the UK. According to the computational experiments, the proposed methods
+ran efﬁciently, producing a small %Gap within a short computational time.
+The models developed in Sect. 2 can be implemented not only for the wind power sector
+but also for other industries that need depots to support their business. The models can be
+enhanced to become bi-objective as there is an underlying trade-off between minimising the
+number of opened depots and minimising the total costs. The compromise programming
+method [see Irawan et al. (2015) for more detailed information] can be applied to address the
+trade-off that occurs. The models can also be extended by considering uncertain customer
+demand. In this case, a technique such as the stochastic programming could be implemented
+in order to model the problem.
+Acknowledgements The research leading to these results has received funding from the European Union
+Seventh Framework Programme under the agreement SCP2-GA-2013-614020 (LEANWIND: Logistic Efﬁ-
+ciencies And Naval architecture for Wind Installations with Novel Developments).
+References
+Abdmouleh, Z., Alammari, R. A. M., & Gastli, A. (2015). Review of policies encouraging renewable energy
+integration and best practices. Renewable and Sustainable Energy Reviews , 45, 249–262.
+Besnard, F., Fischer, K., & Bertling, L. (2013). A model for the optimization of the maintenance support
+organization for offshore wind farms. IEEE Transactions on Sustainable Energy, 4(2), 443–50.
+Camacho-V allejo, J., Muñoz-Sánchez, R., & González-V elarde, J. L. (2015). A heuristic algorithm for a supply
+chain’s production–distribution planning. Computers and Operations Research, 61, 110–121.
+Correia, I., & Captivo, M. E. (2003). A lagrangean heuristic for a modular capacitated location problem.
+Annals of Operations Research, 122, 141–161.
+De Regt, D. N. (2012). Economic feasibility of offshore service locations for maintenance of offshore wind
+farms on the Dutch part of the North Sea. MSc thesis. Delft, The Netherlands: Delft Institute of Applied
+Mathematics.
+Eskandarpour, M., Dejax, P ., & Péton, O. (2017). A large neighborhood search heuristic for supply chain
+network design. Computers and Operations Research, 80, 23–37.
+Francis, R. L., Lowe, T. J., Rayco, M. B., & Tamir, A. (2009). Aggregation error for location models: Survey
+and analysis. Annals of Operations Research, 167, 171–208.
+Gao, L. L., & Robinson, E. P . (1992). A dual-based optimization procedure for the two-echelon uncapacitated
+facility location problem. Naval Research Logistics, 39(2), 191–212.
+Hinojosa, Y ., Puerto, J., & Fernandez, F. R. (2000). A multiperiod two-echelon multicommodity capacitated
+plant location problem. European Journal of Operational Research, 123(2), 271–291.
+Irawan, C. A., Jones, D., & Ouelhadj, D. (2015). Bi-objective optimisation model for installation scheduling in
+offshore wind farms. Computers and Operations Research. https://doi.org/10.1016/j.cor.2015.09.010i.
+Irawan, C. A., Ouelhadj, D., Jones, D., Stålhane, M., & Sperstad, I. B. (2017a). Optimisation of maintenance
+routing and scheduling for offshore wind farms. European Journal of Operational Research, 256, 76–89.
+Irawan, C. A., & Salhi, S. (2015a). Solving large p-median problems by a multistage hybrid approach using
+demand points aggregation and variable neighbourhood search. Journal of Global Optimization , 63,
+537–554.
+Irawan, C. A., & Salhi, S. (2015b). Aggregation and non-aggregation techniques for large facility location
+problems—A survey. Yugoslav Journal of Operations Research, 25, 1–11.
+Irawan, C. A., Salhi, S., & Drezner, Z. (2016). Hybrid meta-heuristics with VNS and exact methods: Application
+to large unconditional and conditional vertex p-centre problems. Journal of Heuristics, 22, 507–537.
+123
+
+--- PAGE 27 ---
+Ann Oper Res (2019) 272:41–67 67
+Irawan, C. A., Salhi, S., Luis, M., & Azizi, N. (2017b). The continuous single source location problem
+with capacity and zone-dependent ﬁxed cost: Models and solution approaches. European Journal of
+Operational Research. https://doi.org/10.1016/j.ejor.2017.04.004.
+Irawan, C. A., Salhi, S., & Scaparra, M. P . (2014). An adaptive multiphase approach for large unconditional
+and conditional p-median problems. European Journal of Operational Research, 237, 590–605.
+Jones, D. F., & Wall, G. (2016). An extended goal programming model for site selection in the offshore wind
+farm sector. Annals of Operations Research, 245(1), 121–135.
+Keskin, B. B., & Üster, H. (2007a). A scatter search-based heuristic to locate capacitated transshipment points.
+Computers and Operations Research, 34(10), 3112–3125.
+Keskin, B. B., & Üster, H. (2007b). Meta-heuristic approaches with memory and evolution for a multi-product
+production/distribution system design problem. European Journal of Operational Research , 182(2),
+663–682.
+Klose, A. (1999). An LP-based heuristic for two-stage capacitated facility location problems. Journal of
+Operational Research Society, 50(2), 157–166.
+Klose, A. (2000). A Lagrangean relax-and-cut approach for the two-stage capacitated facility location problem.
+European Journal of Operational Research, 126(2), 408–421.
+Krarup, J., & Pruzan, P . M. (1983). The simple plant location problem: Survey and synthesis.European Journal
+of Operational Research, 12, 36–81.
+Li, J., Chu, F., Prins, C., & Zhu, Z. (2014). Lower and upper bounds for a two-stage capacitated facility location
+problem with handling costs. European Journal of Operational Research, 236, 957–967.
+Li, J., Prins, C., & Chu, F. (2012). A scatter search for a multi-type transshipment point location problem with
+multicommodity ﬂow. Journal of Intelligent Manufacturing , 23, 1103–1117.
+Li, J., Ren, C., Dong, J., He, M., Wang, Q., Chen, F., et al. (2011). A Lagrangean-based heuristic for a two-stage
+facility location problem with handling costs. In IEEE international conference on service operations,
+logistics, and informatics (SOLI) (pp. 319–324).
+Lindqvist, M., & Lundin, J. (2010). Spare part logistics and optimization for wind turbines: Methods for
+cost-effective supply and storage. MS thesis. Uppsala, Sweden: Department of Information Technology,
+Division of Systems and Control, Uppsala University.
+Marín, A., & Pelegrín, B. (1999). Applying Lagrangian relaxation to the resolution of two-stage location
+problems. Annals of Operations Research, 86, 179–198.
+Miškovi´c, S., & Stanimirovi´c, Z. (2016). Solving the robust two-stage capacitated facility location problem
+with uncertain transportation costs. Optimization Letters. https://doi.org/10.1007/s11590-016-1036-2 .
+Rodríguez, S. V ., Plà, L. M., & Faulin, J. (2014). New opportunities in operations research to improve pork
+supply chain efﬁciency. Annals of Operations Research, 219, 5–23.
+Stefanello, F., de Araújo, O. C. B., & Müllerc, F. M. (2015). Matheuristics for the capacitated p-median
+problem. International Transaction in Operational Research, 22, 149–167.
+Tracht, K., Westerholt, J., & Schuh, P . (2013). Spare parts planning for offshore wind turbines subject to
+restrictive maintenance conditions. Procedia CIRP, 7
+, 563–568.
+Tragantalerngsak, S., Holt, J., & Rönnqvist, M. (1997). Lagrangean heuristics for the two-echelon, single-
+source, capacitated facility location problem. European Journal of Operational Research, 102(3), 611–
+625.
+Tragantalerngsak, S., Holt, J., & Rönnqvist, M. (2000). An exact method for the two-echelon, single-source,
+capacitated facility location problem. European Journal of Operational Research, 123(3), 473–489.
+Whitaker, R. A. (1983). A fast algorithm for the greedy interchange for large-scale clustering and median
+location problems. INFOR, 21, 95–108.
+123
+

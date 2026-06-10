@@ -1,0 +1,159 @@
+{
+  "status": "completed",
+  "current_phase": "completed",
+  "instance_name": "rand_l5_m20_n40_p5",
+  "source": "random",
+  "metadata": {
+    "generator": "paper_style_partial",
+    "paper_exact_data_generator": false,
+    "note": "The paper fully specifies the algorithm, but not all random data formulas. The chosen rules are documented in README."
+  },
+  "params": {
+    "model": "a",
+    "run_maat": true,
+    "seed": 42,
+    "exact_time_limit": 300.0,
+    "exact_mip_gap": 0.0001,
+    "maat_iterations": 10,
+    "maat_beta": null,
+    "maat_aggregated_time_limit": 150.0,
+    "maat_aggregated_mip_gap": 0.005,
+    "maat_final_time_limit": 108.0,
+    "maat_local_search_time_limit": null,
+    "maat_gamma": 2.5
+  },
+  "size": {
+    "plants": 5,
+    "depots": 20,
+    "customers": 40,
+    "products": 5
+  },
+  "model_a_exact": {
+    "model_name": "Model A",
+    "objective_value": 69168.14557613488,
+    "best_bound": 69164.73783510127,
+    "mip_gap": 4.9267491635323856e-05,
+    "runtime": 5.608789500001876,
+    "status": 2,
+    "open_depots": [
+      "J4",
+      "J12",
+      "J16",
+      "J17",
+      "J19"
+    ],
+    "depot_level_choice": {
+      "J4": {
+        "P1": 0,
+        "P2": 0,
+        "P3": 0,
+        "P4": 0,
+        "P5": 0
+      },
+      "J12": {
+        "P1": 0,
+        "P2": 0,
+        "P3": 0,
+        "P4": 0,
+        "P5": 0
+      },
+      "J16": {
+        "P1": 0,
+        "P2": 0,
+        "P3": 0,
+        "P4": 0,
+        "P5": 0
+      },
+      "J17": {
+        "P1": 0,
+        "P2": 0,
+        "P3": 0,
+        "P4": 0,
+        "P5": 0
+      },
+      "J19": {
+        "P1": 0,
+        "P2": 0,
+        "P3": 0,
+        "P4": 0,
+        "P5": 0
+      }
+    },
+    "opening_cost": 12742.420000000002,
+    "transport_cost": 56425.72557613486
+  },
+  "model_a_maat": {
+    "model_kind": "model_a",
+    "objective_value": 69964.4505521158,
+    "runtime": 66.37250660000063,
+    "stage1_best_depots": [
+      "J11",
+      "J16",
+      "J17",
+      "J19"
+    ],
+    "stage2_best_depots": [
+      "J11",
+      "J16",
+      "J17",
+      "J19"
+    ],
+    "rho": 5,
+    "mu": 8,
+    "iterations": 10,
+    "metadata": {
+      "beta": 1.5,
+      "tau": 150.0,
+      "epsilon": 0.005,
+      "tau_prime": 108.0,
+      "tau_hat": 50.0,
+      "gamma": 2.5
+    },
+    "final_exact": {
+      "model_name": "Model A",
+      "objective_value": 69964.4505521158,
+      "best_bound": 69964.4505521158,
+      "mip_gap": 0.0,
+      "runtime": 0.39028200000029756,
+      "status": 2,
+      "open_depots": [
+        "J11",
+        "J16",
+        "J17",
+        "J19"
+      ],
+      "depot_level_choice": {
+        "J11": {
+          "P1": 0,
+          "P2": 0,
+          "P3": 0,
+          "P4": 0,
+          "P5": 0
+        },
+        "J16": {
+          "P1": 1,
+          "P2": 1,
+          "P3": 0,
+          "P4": 1,
+          "P5": 1
+        },
+        "J17": {
+          "P1": 0,
+          "P2": 0,
+          "P3": 0,
+          "P4": 0,
+          "P5": 0
+        },
+        "J19": {
+          "P1": 0,
+          "P2": 0,
+          "P3": 0,
+          "P4": 0,
+          "P5": 0
+        }
+      },
+      "opening_cost": 10697.99,
+      "transport_cost": 59266.460552115794
+    }
+  }
+}

@@ -1,0 +1,113 @@
+{
+  "status": "completed",
+  "current_phase": "completed",
+  "instance_name": "rand_l3_m8_n12_p3",
+  "source": "random",
+  "metadata": {
+    "generator": "paper_style_partial",
+    "paper_exact_data_generator": false,
+    "note": "The paper fully specifies the algorithm, but not all random data formulas. The chosen rules are documented in README."
+  },
+  "params": {
+    "model": "a",
+    "run_maat": true,
+    "seed": 42,
+    "exact_time_limit": 60.0,
+    "exact_mip_gap": 0.0001,
+    "maat_iterations": 10,
+    "maat_beta": null,
+    "maat_aggregated_time_limit": 150.0,
+    "maat_aggregated_mip_gap": 0.005,
+    "maat_final_time_limit": 108.0,
+    "maat_local_search_time_limit": null,
+    "maat_gamma": 2.5
+  },
+  "size": {
+    "plants": 3,
+    "depots": 8,
+    "customers": 12,
+    "products": 3
+  },
+  "model_a_exact": {
+    "model_name": "Model A",
+    "objective_value": 5308.833489693527,
+    "best_bound": 5308.833489693526,
+    "mip_gap": 0.0,
+    "runtime": 0.2740717999986373,
+    "status": 2,
+    "open_depots": [
+      "J1",
+      "J3",
+      "J8"
+    ],
+    "depot_level_choice": {
+      "J1": {
+        "P1": 0,
+        "P2": 0,
+        "P3": 0
+      },
+      "J3": {
+        "P1": 0,
+        "P2": 0,
+        "P3": 0
+      },
+      "J8": {
+        "P1": 0,
+        "P2": 0,
+        "P3": 0
+      }
+    },
+    "opening_cost": 1797.5900000000001,
+    "transport_cost": 3511.2434896935265
+  },
+  "model_a_maat": {
+    "model_kind": "model_a",
+    "objective_value": 5421.016454209152,
+    "runtime": 3.4804516000003787,
+    "stage1_best_depots": [
+      "J1",
+      "J8"
+    ],
+    "stage2_best_depots": [
+      "J1",
+      "J8"
+    ],
+    "rho": 2,
+    "mu": 3,
+    "iterations": 10,
+    "metadata": {
+      "beta": 1.5,
+      "tau": 150.0,
+      "epsilon": 0.005,
+      "tau_prime": 108.0,
+      "tau_hat": 9.0,
+      "gamma": 2.5
+    },
+    "final_exact": {
+      "model_name": "Model A",
+      "objective_value": 5421.016454209152,
+      "best_bound": 5421.016454209152,
+      "mip_gap": 0.0,
+      "runtime": 0.04116779999822029,
+      "status": 2,
+      "open_depots": [
+        "J1",
+        "J8"
+      ],
+      "depot_level_choice": {
+        "J1": {
+          "P1": 0,
+          "P2": 0,
+          "P3": 0
+        },
+        "J8": {
+          "P1": 0,
+          "P2": 0,
+          "P3": 0
+        }
+      },
+      "opening_cost": 1154.64,
+      "transport_cost": 4266.376454209154
+    }
+  }
+}

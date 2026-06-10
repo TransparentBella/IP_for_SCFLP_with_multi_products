@@ -1,0 +1,10 @@
+skip completed: teacher_data_100200400_model_a_maat.json
+run: teacher_data_200400800_model_a_maat.json
+Set parameter LicenseID to value 2796689
+summary updated: batch_summary.csv
+skip completed: teacher_data_100200400_model_b_maat.json
+run: teacher_data_200400800_model_b_maat.json
+summary updated: batch_summary.csv
+skip completed: random_l5_m20_n40_p5_model_a_maat.json
+skip completed: random_l8_m30_n60_p5_model_a_maat.json
+D:\Study\Programming\operations\Operation1\IP_for_SCFLP_with_multi_products\outputs\batch_summary.csv

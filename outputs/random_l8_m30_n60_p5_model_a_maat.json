@@ -1,0 +1,205 @@
+{
+  "status": "completed",
+  "current_phase": "completed",
+  "instance_name": "rand_l8_m30_n60_p5",
+  "source": "random",
+  "metadata": {
+    "generator": "paper_style_partial",
+    "paper_exact_data_generator": false,
+    "note": "The paper fully specifies the algorithm, but not all random data formulas. The chosen rules are documented in README."
+  },
+  "params": {
+    "model": "a",
+    "run_maat": true,
+    "seed": 43,
+    "exact_time_limit": 300.0,
+    "exact_mip_gap": 0.0001,
+    "maat_iterations": 10,
+    "maat_beta": null,
+    "maat_aggregated_time_limit": 150.0,
+    "maat_aggregated_mip_gap": 0.005,
+    "maat_final_time_limit": 108.0,
+    "maat_local_search_time_limit": null,
+    "maat_gamma": 2.5
+  },
+  "size": {
+    "plants": 8,
+    "depots": 30,
+    "customers": 60,
+    "products": 5
+  },
+  "model_a_exact": {
+    "model_name": "Model A",
+    "objective_value": 138236.31433548487,
+    "best_bound": 138236.31433548487,
+    "mip_gap": 0.0,
+    "runtime": 19.185370300001523,
+    "status": 2,
+    "open_depots": [
+      "J4",
+      "J8",
+      "J9",
+      "J12",
+      "J20",
+      "J23",
+      "J24"
+    ],
+    "depot_level_choice": {
+      "J4": {
+        "P1": 0,
+        "P2": 0,
+        "P3": 0,
+        "P4": 0,
+        "P5": 0
+      },
+      "J8": {
+        "P1": 0,
+        "P2": 0,
+        "P3": 0,
+        "P4": 0,
+        "P5": 0
+      },
+      "J9": {
+        "P1": 0,
+        "P2": 0,
+        "P3": 0,
+        "P4": 0,
+        "P5": 0
+      },
+      "J12": {
+        "P1": 0,
+        "P2": 0,
+        "P3": 0,
+        "P4": 0,
+        "P5": 0
+      },
+      "J20": {
+        "P1": 0,
+        "P2": 0,
+        "P3": 0,
+        "P4": 0,
+        "P5": 0
+      },
+      "J23": {
+        "P1": 0,
+        "P2": 0,
+        "P3": 0,
+        "P4": 0,
+        "P5": 0
+      },
+      "J24": {
+        "P1": 0,
+        "P2": 0,
+        "P3": 0,
+        "P4": 0,
+        "P5": 0
+      }
+    },
+    "opening_cost": 39339.86,
+    "transport_cost": 98896.45433548493
+  },
+  "model_a_maat": {
+    "model_kind": "model_a",
+    "objective_value": 138551.54186348486,
+    "runtime": 313.08091910000076,
+    "stage1_best_depots": [
+      "J4",
+      "J9",
+      "J12",
+      "J20",
+      "J23",
+      "J24",
+      "J25"
+    ],
+    "stage2_best_depots": [
+      "J4",
+      "J9",
+      "J12",
+      "J20",
+      "J23",
+      "J24",
+      "J25"
+    ],
+    "rho": 7,
+    "mu": 11,
+    "iterations": 10,
+    "metadata": {
+      "beta": 1.5,
+      "tau": 150.0,
+      "epsilon": 0.005,
+      "tau_prime": 108.0,
+      "tau_hat": 75.0,
+      "gamma": 2.5
+    },
+    "final_exact": {
+      "model_name": "Model A",
+      "objective_value": 138551.54186348486,
+      "best_bound": 138542.04944558334,
+      "mip_gap": 6.85118171465349e-05,
+      "runtime": 1.919677000001684,
+      "status": 2,
+      "open_depots": [
+        "J4",
+        "J9",
+        "J12",
+        "J20",
+        "J23",
+        "J24",
+        "J25"
+      ],
+      "depot_level_choice": {
+        "J4": {
+          "P1": 0,
+          "P2": 0,
+          "P3": 0,
+          "P4": 0,
+          "P5": 0
+        },
+        "J9": {
+          "P1": 0,
+          "P2": 0,
+          "P3": 0,
+          "P4": 0,
+          "P5": 0
+        },
+        "J12": {
+          "P1": 0,
+          "P2": 0,
+          "P3": 0,
+          "P4": 0,
+          "P5": 0
+        },
+        "J20": {
+          "P1": 0,
+          "P2": 0,
+          "P3": 0,
+          "P4": 0,
+          "P5": 0
+        },
+        "J23": {
+          "P1": 0,
+          "P2": 0,
+          "P3": 0,
+          "P4": 0,
+          "P5": 0
+        },
+        "J24": {
+          "P1": 0,
+          "P2": 0,
+          "P3": 0,
+          "P4": 0,
+          "P5": 0
+        },
+        "J25": {
+          "P1": 0,
+          "P2": 0,
+          "P3": 0,
+          "P4": 0,
+          "P5": 0
+        }
+      },
+      "opening_cost": 38491.939999999995,
+      "transport_cost": 100059.60186348484
+    }
+  }
+}
